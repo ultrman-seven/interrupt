@@ -6,7 +6,7 @@
 typedef unsigned char un8;
 typedef unsigned int un16;
 
-char led0;//sbit led0 = P2 ^ 0;
+sbit led0 = P2 ^ 0;
 
 main()
 {
@@ -30,7 +30,7 @@ void timer0InterruptOn(void)//打开定时器中断
 	TR0 = 1;//定时器0开始工作
 }
 
-void timer0interrupt(void)// interrupt 1
+void timer0interrupt(void) interrupt 1
 {
 	static un16 time = 0;
 	TH0 = 0xd8;
