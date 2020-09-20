@@ -43,8 +43,8 @@ void exInterrupt(void) interrupt 0
 {
 	void setLed(un8 dataLow, un8 dataHigh);
 	un8 countForLight = 0;//
-	un8 countForFlow = 0;//控制移位
-	un8 count;//每帧画面停留时间
+	un8 countForFlow = 0;//鎺у埗绉讳綅
+	un8 count;//姣忓抚鐢婚潰鍋滅暀鏃堕棿
 	un8 time = 24;
 	while (time--)
 	{
