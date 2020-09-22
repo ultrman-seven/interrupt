@@ -4,15 +4,17 @@
 typedef unsigned char un8;
 typedef unsigned short int un16;
 
+//to control 74HC595
 sbit dataIn = P3 ^ 6;
 sbit dataOut = P3 ^ 5;
 sbit input = P3 ^ 4;
 
+//点阵的列，低电平接通，高电平截断
 un8 code lowNum[8] = { 0x7f,0xbf,0xdf,0xef,0xf7,0xfb,0xfd,0xfe };
-
-un8 code character_ha[8] = { 0x38, 0x28, 0x38, 0x20, 0x57, 0x95, 0x57, 0x20 };
-un8 code heart[8] = { 0x00,0x18,0x3C,0x3E,0x1F,0x3A,0x34,0x18 };
-un8 code heartBig[8] = { 0x38,0x64,0x4A,0x35,0x2F,0x52,0x6C,0x38 };
+//行字符，高电平点亮
+un8 code character_ha[8] = { 0x38, 0x28, 0x38, 0x20, 0x57, 0x95, 0x57, 0x20 };//哈
+un8 code heart[8] = { 0x00,0x18,0x3C,0x3E,0x1F,0x3A,0x34,0x18 };//心♥
+un8 code heartBig[8] = { 0x38,0x64,0x4A,0x35,0x2F,0x52,0x6C,0x38 };//大心
 
 void main()
 {
@@ -24,6 +26,7 @@ void main()
 	externalInterrupt();
 	while (1)
 	{
+//大、小 心轮流显示，造成跳动效果♥
 		count = 0xff;
 		while (count--)
 			setLed(lowNum[count % 8], heart[count % 8]);
@@ -33,7 +36,7 @@ void main()
 	}
 }
 
-void externalInterrupt(void)
+void externalInterrupt(void)//外部中断打开
 {
 	EA = EX0 = 1;
 	IT0 = 0;
@@ -43,8 +46,8 @@ void exInterrupt(void) interrupt 0
 {
 	void setLed(un8 dataLow, un8 dataHigh);
 	un8 countForLight = 0;//
-	un8 countForFlow = 0;//������λ
-	un8 count;//ÿ֡����ͣ��ʱ��
+	un8 countForFlow = 0;//控制移位
+	un8 count;//每帧画面停留时间
 	un8 time = 24;
 	while (time--)
 	{
