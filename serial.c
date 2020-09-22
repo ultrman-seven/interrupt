@@ -1,4 +1,4 @@
-//´®ĞĞ¿ÚÖĞ¶Ï
+//ä¸²è¡Œå£ä¸­æ–­
 #include<reg52.h>
 
 typedef unsigned char un8;
@@ -17,14 +17,14 @@ void serialPortInterruptOn(void)
 	EA = ES = REN = 1;
 	PCON |= 0x80;
 
-	//¹¤×÷·½Ê½1
+	//å·¥ä½œæ–¹å¼1
 	SM0 = 0;
 	SM1 = 1;
 
-	//ÉèÖÃ¶¨Ê±Æ÷
-	TMOD = 0x20;//¹¤×÷·½Ê½£º2 
+	//è®¾ç½®å®šæ—¶å™¨
+	TMOD = 0x20;//å·¥ä½œæ–¹å¼ï¼š2 
 	TH1 = TL1 = 0xf9;
-	TR1 = 1;//¶¨Ê±Æ÷1¿ªÊ¼¹¤×÷
+	TR1 = 1;//å®šæ—¶å™¨1å¼€å§‹å·¥ä½œ
 }
 
 void serialInterrupt(void) interrupt 4
